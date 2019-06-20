@@ -17,16 +17,15 @@ def hello2(request, id=0):
 - index(list): ok
 - add: ok
 - delete
-   1. repository 에서 객체를 영속화\
-```python
-guestbook = Guestbook.objects.filter(id=20).filter(password='1234')
-guestbook.delete()
-```
-   2. 
+   repository 에서 객체를 영속화
+    ```python
+    guestbook = Guestbook.objects.filter(id=20).filter(password='1234')
+    guestbook.delete()
+    ``` 
 
 ## 구현 안해도 되는 것
 `list.html` 템플릿에서
 1. 메시지 index 잡는 것 하지 말 것
    - django template arith operation
-2. 메시지 개항문자 <br> replace 하지 말 것
+2. 메시지 개행문자 <br> replace 하지 말 것
    - hint: filter
