@@ -27,5 +27,6 @@ def hello2(request, id=0):
 `list.html` 템플릿에서
 1. 메시지 index 잡는 것 하지 말 것
    - django template arith operation
+   - <https://docs.djangoproject.com/en/2.2/ref/templates/builtins/>
 2. 메시지 개행문자 <br> replace 하지 말 것
    - hint: filter

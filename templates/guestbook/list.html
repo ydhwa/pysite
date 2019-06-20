@@ -26,7 +26,8 @@
 						<table>
 							{% for guestbook in guestbooklist %}
 							<tr>
-								<td>{{ guestbook.id }}</td>
+								<!--<td>{{ guestbook.id }}</td>-->
+								<td>{{ forloop.revcounter }}</td>
 								<td>{{ guestbook.name }}</td>
 								<td>{{ guestbook.regdate }}</td>
 								<td><a href="/guestbook/deleteform/{{ guestbook.id }}">삭제</a></td>
