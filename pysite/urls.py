@@ -16,8 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import main.views as main_views
+import user.views as user_views
 
 urlpatterns = [
     path('', main_views.index),
+
+    path('user/joinform', user_views.joinform),
+    path('user/join', user_views.join),
+    path('user/joinsuccess', user_views.joinsuccess),
+
     path('admin/', admin.site.urls),
 ]

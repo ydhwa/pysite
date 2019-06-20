@@ -108,3 +108,6 @@ Django 어플리케이션과 물리적인 데이터베이스를 동기화 시키
 ---
 
 # Appliation 작업 진행
+- [여기](https://github.com/ydhwa/python_ch3/tree/master/docs) 참고
+- main
+- user
