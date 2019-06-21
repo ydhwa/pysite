@@ -29,7 +29,7 @@ def deleteform(request, id=0):
         return HttpResponseRedirect('/guestbook')
 
     data = {'id': id}
-    return render(request, f'guestbook/deleteform.html', data)
+    return render(request, 'guestbook/deleteform.html', data)
 
 
 def delete(request):

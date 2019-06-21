@@ -1,26 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>mysite</title>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
+{% extends '../base.html' %}
+{% load mathfilters %}
+
+{% block external_sources %}
 <link href="/assets/css/board.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-	<div id="container">
-		<div id="header">
-			<h1>MySite</h1>
-			<ul>
-				<li><a href="/user/loginform">로그인</a><li>
-				<li><a href="/user/joinform">회원가입</a><li>
-				<li><a href="/user/updateform">회원정보수정</a><li>
-				<li><a href="/user/logout">로그아웃</a><li>
-				<li>님 안녕하세요 ^^;</li>
-			</ul>
-		</div>
-		<div id="content">
+{% endblock %}
+
+{% block content %}
 			<div id="board">
-				<form id="search_form" action="" method="post">
-					<input type="text" id="kwd" name="kwd" value="">
+				<form id="search_form" action="/board/list" method="get">
+					<input type="text" id="kwd" name="kwd" value="{{ kwd }}">
 					<input type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
@@ -31,47 +19,64 @@
 						<th>조회수</th>
 						<th>작성일</th>
 						<th>&nbsp;</th>
-					</tr>				
-					<tr>
-						<td>3</td>
-						<td><a href="">세 번째 글입니다.</a></td>
-						<td>안대혁</td>
-						<td>3</td>
-						<td>2015-10-11 12:04:20</td>
-						<td><a href="" class="del">삭제</a></td>
 					</tr>
+
+					{% for board in boardlist %}
 					<tr>
-						<td>2</td>
-						<td><a href="">두 번째 글입니다.</a></td>
-						<td>안대혁</td>
-						<td>3</td>
-						<td>2015-10-02 12:04:12</td>
-						<td><a href="" class="del">삭제</a></td>
+						<td>{{ forloop.revcounter }}</td>
+						<td style="text-align: left; padding-left: {{ board.depth | mul:15 }}px;">
+							{% if board.depth > 0 %}
+								<img src="/assets/images/reply.png">
+							{% endif %}
+							<a href="/board/view/{{ board.id }}">{{ board.title }}</a>
+						</td>
+						<td>{{ board.user.name }}</td>
+						<td>{{ board.hit }}</td>
+						<td>{{ board.regdate | date:'Y-m-d H:i:s' }}</td>
+						<td>
+							{% if request.session.authuser.id == board.user.id %}
+							<a href="/board/delete/{{ board.id }}" class="del">
+								<img src="/assets/images/recycle.png">
+							</a>
+							{% endif %}
+						</td>
 					</tr>
-					<tr>
-						<td>1</td>
-						<td><a href="">첫 번째 글입니다.</a></td>
-						<td>안대혁</td>
-						<td>3</td>
-						<td>2015-09-25 07:24:32</td>
-						<td><a href="" class="del">삭제</a></td>
-					</tr>
+					{% endfor %}
+
 				</table>
+
+				<!-- pager 추가 -->
+				<div class="pager">
+					<ul>
+
+						{% if start_page == 1 %}
+							<li style="color: #bbb;">◀</li>
+						{% else %}
+							<li><a href="/board/list?page={{ start_page | sub:1 }}&kwd={{ kwd }}">◀</a></li>
+						{% endif %}
+
+						{% for i in pager %}
+							{% if end_page < i %}
+								<li style="color: #aaa;">{{ i }}</li>
+							{% elif page == i|slugify %}
+								<li class="selected">{{ i }}</li>
+							{% else %}
+								<li><a href="/board/list?page={{ i }}&kwd={{ kwd }}">{{ i }}</a></li>
+							{% endif %}
+						{% endfor %}
+
+						{% if end_page <= pager|length %}
+							<li style="color: #bbb;">▶</li>
+						{% else %}
+							<li><a href="/board/list?page={{ start_page | add:pagesize }}&kwd={{ kwd }}">▶</a></li>
+						{% endif %}
+
+					</ul>
+				</div>
+				<!-- pager 추가 -->
+
 				<div class="bottom">
-					<a href="" id="new-book">글쓰기</a>
+					<a href="/board/write" id="new-book">글쓰기</a>
 				</div>				
 			</div>
-		</div>
-		<div id="navigation">
-			<ul>
-				<li><a href="">안대혁</a></li>
-				<li><a href="">방명록</a></li>
-				<li><a href="">게시판</a></li>
-			</ul>
-		</div>
-		<div id="footer">
-			<p>(c)opyright 2015, 2016, 2017, 2018</p>
-		</div>
-	</div>
-</body>
-</html>
+{% endblock %}

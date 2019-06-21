@@ -75,10 +75,7 @@ def update(request):
 
 
 def checkemail(request):
-    try:
-        user = User.objects.filter(email=request.GET['email'])
-    except Exception as e:
-        user = None
+    user = User.objects.filter(email=request.GET['email'])
 
     result = {
         'result': 'success',
