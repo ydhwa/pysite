@@ -63,7 +63,7 @@ def update(request):
     user = User.objects.get(id=request.session['authuser']['id'])
     user.name = request.POST['name']
     user.gender = request.POST['gender']
-    if request.POST['password'] is None:
+    if request.POST['password'] != '':
         user.password = request.POST['password']
     user.save()
 

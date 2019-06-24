@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django_enumfield import enum
 from user.models import User
 
@@ -28,3 +29,12 @@ class Board(models.Model):
     def __str__(self):
         return f'Board({self.title}, {self.content}, {self.hit}, {self.regdate}, {self.groupno}, {self.orderno}, {self.depth}, {self.user})'
 
+
+# 조회수 저장 테이블
+class HitCount(models.Model):
+    ip = models.CharField(max_length=15, default=None, null=True)
+    post = models.ForeignKey(Board, default=None, null=True, on_delete=models.CASCADE)
+    date = models.DateField(default=timezone.now(), null=True, blank=True)
+
+    def __str__(self):
+        return f'HitCount({self.ip}, {self.post}, {self.date})'
