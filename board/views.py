@@ -44,8 +44,7 @@ def view(request, id=0):
 
 
 def write(request):
-    print('---', request.session['authuser'])
-    if request.session['authuser'] is None:
+    if 'authuser' not in request.session:
         return HttpResponseRedirect('/board')
 
     data = {'groupno': ('0' if 'groupno' not in request.GET else request.GET['groupno']),
@@ -55,6 +54,9 @@ def write(request):
 
 
 def insert(request):
+    if 'authuser' not in request.session:
+        return HttpResponseRedirect('/board')
+
     board = Board()
 
     board.title = request.POST['title']
@@ -80,8 +82,9 @@ def insert(request):
 
 
 def modify(request, id=0):
-    if id == 0 or request.session['authuser'] is None:
+    if 'authuser' not in request.session:
         return HttpResponseRedirect('/board')
+
     board = Board.objects.get(id=id)
     if board is None or board.user.id != request.session['authuser']['id']:
         return HttpResponseRedirect('/board')
@@ -91,6 +94,9 @@ def modify(request, id=0):
 
 
 def update(request):
+    if 'authuser' not in request.session:
+        return HttpResponseRedirect('/board')
+
     boardid = int(request.POST['id'])
     board = Board.objects.get(id=boardid)
 
@@ -106,7 +112,7 @@ def update(request):
 
 
 def delete(request, id=0):
-    if id == 0:
+    if 'authuser' not in request.session:
         return HttpResponseRedirect('/board')
 
     board = Board.objects.get(id=id)
