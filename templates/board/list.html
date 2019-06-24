@@ -27,7 +27,7 @@
 						<td colspan="6" style="color: #bbb;">!삭제된 게시글입니다.</td>
 						{% else %}
 
-						<td>{{ forloop.revcounter }}</td>
+						<td>{{ pagesize | mul:page | sub:forloop.revcounter0 }}</td>
 						<td style="text-align: left; padding-left: {{ board.depth | mul:15 }}px;">
 							{% if board.depth > 0 %}
 								<img src="/assets/images/reply.png">

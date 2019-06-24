@@ -38,6 +38,7 @@ def getlist(request):
             'pager': range(start_page + 1, start_page + 1 + pagersize),
             'start_page': start_page + 1,
             'end_page': end_page,
+            'pagesize': pagesize,
             'pagersize': pagersize}
 
     return render(request, 'board/list.html', data)
