@@ -23,6 +23,10 @@
 
 					{% for board in boardlist %}
 					<tr>
+						{% if board.status == 1 %}
+						<td colspan="6" style="color: #bbb;">!삭제된 게시글입니다.</td>
+						{% else %}
+
 						<td>{{ forloop.revcounter }}</td>
 						<td style="text-align: left; padding-left: {{ board.depth | mul:15 }}px;">
 							{% if board.depth > 0 %}
@@ -41,14 +45,15 @@
 							{% endif %}
 						</td>
 					</tr>
-					{% endfor %}
 
+					{% endif %}
+
+					{% endfor %}
 				</table>
 
 				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-
 						{% if start_page == 1 %}
 							<li style="color: #bbb;">◀</li>
 						{% else %}
@@ -70,13 +75,14 @@
 						{% else %}
 							<li><a href="/board/list?page={{ start_page | add:pagesize }}&kwd={{ kwd }}">▶</a></li>
 						{% endif %}
-
 					</ul>
 				</div>
 				<!-- pager 추가 -->
 
+				{% if request.session.authuser is not None %}
 				<div class="bottom">
 					<a href="/board/write" id="new-book">글쓰기</a>
-				</div>				
+				</div>
+				{% endif %}
 			</div>
 {% endblock %}

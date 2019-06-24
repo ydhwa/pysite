@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 
 # Create your views here.
-from board.models import Board
+from board.models import Board, BoardStatus
 from user.models import User
 
 pagesize = 5
@@ -44,6 +44,7 @@ def view(request, id=0):
 
 
 def write(request):
+    print('---', request.session['authuser'])
     if request.session['authuser'] is None:
         return HttpResponseRedirect('/board')
 
@@ -113,5 +114,8 @@ def delete(request, id=0):
     if board is None or board.user.id != request.session['authuser']['id']:
         return HttpResponseRedirect('/board')
 
-    board.delete()
+    # board.delete()
+    board.status = BoardStatus.INACTIVE
+    board.save()
+
     return HttpResponseRedirect('/board')
