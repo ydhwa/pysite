@@ -40,6 +40,7 @@ urlpatterns = [
     path('guestbook/insert', guestbook_views.insert),
     path('guestbook/deleteform/<int:id>', guestbook_views.deleteform),
     path('guestbook/delete', guestbook_views.delete),
+    # re_path(r'^guestbook/list(?:/(?P<pageno>\d+))?/$', guestbook_views.getlist),
 
     path('board/', board_views.getlist),
     path('board/list', board_views.getlist),
