@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bootstrap</title>
+
+<!-- Bootstrap -->
+<link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/assets/css/bs/font.css" rel="stylesheet">
+<link href="/assets/css/bs/mysite.css" rel="stylesheet">
+    {% block external_sources %}{% endblock %}
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+	<div class="container">
+		<header>
+            <h1><span>Py</span>Site</h1>
+        </header>
+
+        <div class="row">
+            <div class="col-md-12 side-nav">
+                <ul class="list-inline text-uppercase">
+                    <a href="/user/joinform"><li>join</li></a>
+                    <a href="/user/loginform"><li>login</li></a>
+                </ul>
+            </div>
+        </div>
+
+		<div class="row">
+			<div class="col-md-2 nav-wrapper">
+				<ul class="nav text-uppercase">
+					<a href="/"><li>about me</li></a>
+                    <a href="/guestbook"><li>guestbook</li></a>
+                    <a href="/board"><li>board</li></a>
+				</ul>
+			</div>
+
+            <div class="col-md-10">
+                <div class="content">
+				    {% block content %}{% endblock %}
+                </div>
+			</div>
+
+		</div>
+		<hr>
+        <footer>
+		    <p>&copy; Copyright 2019</p>
+        </footer>
+	</div>
+</body>
+</html>

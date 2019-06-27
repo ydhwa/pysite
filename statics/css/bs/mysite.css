@@ -1,0 +1,72 @@
+@CHARSET "UTF-8";
+
+a {
+    cursor: pointer;
+    color: #333;
+}
+a:hover {
+    text-decoration: none;
+    color: #50BC9A;
+}
+a.link {
+    color: #2aabd2;
+    display: inline;
+    box-sizing: initial;
+}
+ul a {
+    float: left;
+}
+
+header {
+    font-family: Consolas, "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+    letter-spacing: 5px;
+    cursor: default;
+}
+header h1 {
+    font-weight: bold;
+}
+header span {
+    color: #16A579;
+}
+
+.side-nav ul {
+    font-family: Consolas, "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+    letter-spacing: .3em;
+    float: right;
+    font-weight: bold;
+}
+.side-nav ul li {
+    padding: 10px;
+    color: #999;
+}
+
+.nav-wrapper {
+    text-align: center;
+}
+
+.nav {
+    font-family: Consolas, "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+    letter-spacing: .3em;
+    margin-top: 20px;
+    display: inline-block;
+    font-weight: bold;
+}
+.nav li {
+    margin: 10px auto;
+    padding: 0 10px;
+    width: 150px;
+    text-align: center;
+}
+
+footer {
+    font-family: Consolas, "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+    font-size: small;
+    letter-spacing: .3em;
+    text-align: center;
+}
+
+.content {
+    min-height: 400px;
+    padding: 5px 20px;
+    border: 1px solid #efefef;
+}

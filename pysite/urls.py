@@ -15,9 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-import main.views as main_views
+import main.views_b as main_views
 import user.views as user_views
-import guestbook.views as guestbook_views
+import guestbook.views_b as guestbook_views
 import board.views as board_views
 
 from django.conf.urls import handler404, handler500

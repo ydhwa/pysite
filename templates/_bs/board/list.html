@@ -1,0 +1,88 @@
+{% extends '../base.html' %}
+{% load mathfilters %}
+
+{% block external_sources %}
+<link href="/assets/css/board.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+			<div id="board">
+				<form id="search_form" action="/board/list" method="get">
+					<input type="text" id="kwd" name="kwd" value="{{ kwd }}">
+					<input type="submit" value="찾기">
+				</form>
+				<table class="tbl-ex">
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>글쓴이</th>
+						<th>조회수</th>
+						<th>작성일</th>
+						<th>&nbsp;</th>
+					</tr>
+
+					{% for board in boardlist %}
+					<tr>
+						{% if board.status == 1 %}
+						<td colspan="6" style="color: #bbb;">!삭제된 게시글입니다.</td>
+						{% else %}
+
+						<td>{{ pagesize | mul:page | sub:forloop.revcounter0 }}</td>
+						<td style="text-align: left; padding-left: {{ board.depth | mul:15 }}px;">
+							{% if board.depth > 0 %}
+								<img src="/assets/images/reply.png">
+							{% endif %}
+							<a href="/board/view/{{ board.id }}?kwd={{ kwd }}&page={{ page }}">{{ board.title }}</a>
+						</td>
+						<td>{{ board.user.name }}</td>
+						<td>{{ board.hit }}</td>
+						<td>{{ board.regdate | date:'Y-m-d H:i:s' }}</td>
+						<td>
+							{% if request.session.authuser.id == board.user.id %}
+							<a href="/board/delete/{{ board.id }}?page={{ page }}&kwd={{ kwd }}" class="del">
+								<img src="/assets/images/recycle.png">
+							</a>
+							{% endif %}
+						</td>
+					</tr>
+
+					{% endif %}
+
+					{% endfor %}
+				</table>
+
+				<!-- pager 추가 -->
+				<div class="pager">
+					<ul>
+						{% if start_page == 1 %}
+							<li style="color: #bbb;">◀</li>
+						{% else %}
+							<li><a href="/board/list?page={{ start_page | sub:1 }}&kwd={{ kwd }}">◀</a></li>
+						{% endif %}
+
+						{% for i in pager %}
+							{% if end_page < i %}
+								<li style="color: #aaa;">{{ i }}</li>
+							{% elif page == i|slugify %}
+								<li class="selected">{{ i }}</li>
+							{% else %}
+								<li><a href="/board/list?page={{ i }}&kwd={{ kwd }}">{{ i }}</a></li>
+							{% endif %}
+						{% endfor %}
+
+						{% if end_page <= pager|length %}
+							<li style="color: #bbb;">▶</li>
+						{% else %}
+							<li><a href="/board/list?page={{ start_page | add:pagersize }}&kwd={{ kwd }}">▶</a></li>
+						{% endif %}
+					</ul>
+				</div>
+				<!-- pager 추가 -->
+
+				{% if request.session.authuser is not None %}
+				<div class="bottom">
+					<a href="/board/write" id="new-book">글쓰기</a>
+				</div>
+				{% endif %}
+			</div>
+{% endblock %}

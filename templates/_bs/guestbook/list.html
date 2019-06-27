@@ -1,0 +1,90 @@
+{% extends '../base.html' %}
+{% load mathfilters %}
+
+{% block external_sources %}
+<link href="/assets/css/bs/guestbook.css" rel="stylesheet" type="text/css">
+<style>
+	form {
+		margin: 0 auto;
+		width: 80%;
+		text-align: center;
+	}
+	.form-control {
+		margin-bottom: 5px;
+	}
+	#name, #password {
+		width: 50%;
+		float: left;
+	}
+	textarea {
+		resize: none;
+	}
+	.btn-default:hover {
+		background-color: #50BC9A;
+		color: white;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+			<div id="guestbook">
+				<form action="/guestbook/insert" method="post">{% csrf_token %}
+					<input type="hidden" name="a" value="insert">
+					<div class="form-group">
+						<label for="name" class="sr-only">이름</label>
+						<input id="name" class="form-control input-group" type="text" name="name" placeholder="이름">
+					</div>
+					<div class="form-group">
+						<label for="password" class="sr-only">비밀번호</label>
+						<input id="password" class="form-control input-group" type="password" name="pass" placeholder="****">
+					</div>
+					<textarea rows="4" class="form-control" name="content" id="content" placeholder="내용"></textarea>
+					<input type="submit" VALUE="확인" class="btn btn-sm btn-default btn-block">
+				</form>
+
+				<hr>
+
+				<ul class="list-unstyled">
+					{# --{{ guestbooklist | length }} : {{ guestbooklist.count | add:1 | sub:2 }}-- #}
+					{% for guestbook in guestbooklist %}
+					<li>
+					{% if forloop.first %}
+						<table class="table">
+							<tr>
+								<!--<td>{{ guestbook.id }}</td>-->
+								{% comment 'forloop variable' %}
+								{% endcomment %}
+								{# [{{ guestbook_list.count | sub:forloop.counter | add:1 }}] #}
+								<td>[{{ forloop.revcounter }}]</td>
+								<td>{{ guestbook.name }}</td>
+								<td>{{ guestbook.regdate | date:'Y-m-d H:i:s' }}</td>
+								<td><a href="/guestbook/deleteform/{{ guestbook.id }}">삭제</a></td>
+							</tr>
+							<tr>
+								<td colspan=4>
+								{{ guestbook.content | linebreaksbr }}
+								</td>
+							</tr>
+						</table>
+					{% else %}
+						<table class="table">
+							<tr>
+								<!--<td>{{ guestbook.id }}</td>-->
+								<td>[{{ forloop.revcounter }}]</td>
+								<td>{{ guestbook.name }}</td>
+								<td>{{ guestbook.regdate | date:'Y-m-d H:i:s' }}</td>
+								<td><a href="/guestbook/deleteform/{{ guestbook.id }}">삭제</a></td>
+							</tr>
+							<tr>
+								<td colspan=4>
+									{{ guestbook.content | linebreaksbr }}
+								</td>
+							</tr>
+						</table>
+					{% endif %}
+						<br>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+{% endblock %}
