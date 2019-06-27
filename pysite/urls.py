@@ -20,6 +20,13 @@ import user.views as user_views
 import guestbook.views as guestbook_views
 import board.views as board_views
 
+from django.conf.urls import handler404, handler500
+
+
+handler404 = 'main.views.handler404'
+handler500 = 'main.views.handler500'
+
+
 urlpatterns = [
     path('', main_views.index),
 
